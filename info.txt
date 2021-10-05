@@ -1,0 +1,10 @@
+{
+  "Name": "Time in Bank",
+  "ID": "time in bank",
+  "Author": "Sam McCreery",
+  "Description": "Enhances Genius accounting with the effective time stored in your bank.",
+  "ModVersion": 1,
+  "GameVersion": 2.042,
+  "Date": "05/10/2021",
+  "AllowSteamAchievs": 1
+}
