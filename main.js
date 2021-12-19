@@ -16,6 +16,11 @@
    * @return {[string, string]} The names of the minimum and maximum units.
    */
   function getDefaultUnits(/** @type {number} */ seconds) {
+    // "Infinity years"
+    if (!Number.isFinite(seconds)) {
+      return ["year", "year"];
+    }
+
     // Round 12 months to 1 year over the last 5 days of the year
     if (seconds >= 12 * units.get("month")) {
       return ["month", "year"];
@@ -61,6 +66,10 @@
    */
   function sayTime(/** @type {number} */ frames, minUnit, maxUnit = "year") {
     let seconds = frames / Game.fps;
+    if (seconds < 1) {
+      return loc("less than 1 second");
+    }
+
     const parts = [];
 
     if (minUnit === undefined) {
@@ -99,9 +108,9 @@
           return;
         }
 
-        // Adapted from Genius accounting. 1 extra second added for some reason
+        // Adapted from Genius accounting. Originally this formula had an extra second added.
         let cps = Game.cookiesPs * (1 - Game.cpsSucked);
-        let timeInBank = (Game.cookies / cps + 1) * Game.fps;
+        let timeInBank = (Game.cookies / cps) * Game.fps;
 
         // Mimic style of "per second" line
         let timeDisplay = document.createElement("div");
